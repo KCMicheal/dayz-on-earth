@@ -1,36 +1,50 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
 .App {
-  text-align: center;
-  background-color: #282c34;
+  background: linear-gradient(0deg, rgb(9, 17, 61), rgb(10, 122, 68));
+  background-size: 100% 200%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: azure;
+  animation: gradient 8s ease-in-out infinite alternate-reverse both;
 }
 
-.App-header {
+@keyframes gradient {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.App-header h1 {
   background-color: inherit;
 }
 
-.App-link {
-  color: #61dafb;
+.App-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 97vh;
+  padding: 20px;
+  color: azure;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App-title {
+  font-weight: bold;
+  font-size: 2rem;
 }
 
-.App-intro{
-  color: red;
+.App-footer{
+  align-self: center;
+}
+
+.slide-out {
+  transition: max-height 0.5s ease-out;
+  max-height: 1000px;
+}
+
+.slide-out:active {
+  max-height: 0;
 }

@@ -3,16 +3,23 @@ import { TimeStamp } from './components/TimeStamp';
 import './App.css';
 
 function App() {
-  
   return (
-    <div className="App bg-slate-700 m-auto">
-      <div className="border-red-700 border-4 p-5">
+    <div className="App">
+      <div className="App-container">
         <header className="App-header">
-          <h1 className="App-title">Dayz On Earth 🌍<span>NEW</span></h1>
+          <h1 className="App-title">Dayz On Earth 🌍</h1>
         </header>
         <TimeStamp />
       </div>
-      <footer className="App-footer">2023</footer>
+      <footer className="App-footer">
+        Made with 💖 by{" "}
+        <span>
+          <a href="https://kcmicheal.com" className="underline">
+            KCM
+          </a>
+        </span>{" "}
+        {new Date().getFullYear()}
+      </footer>
     </div>
   );
 }
