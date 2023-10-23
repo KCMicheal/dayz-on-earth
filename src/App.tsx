@@ -1,5 +1,7 @@
 import React from 'react';
 import { TimeStamp } from './components/TimeStamp';
+import Logo from './assets/logo-no-background.png';
+
 import './App.css';
 
 function App() {
@@ -7,6 +9,7 @@ function App() {
     <div className="App">
       <div className="App-container">
         <header className="App-header">
+          <img src={Logo} className="mx-auto w-44" alt="Logo" />
           <h1 className="App-title">Dayz On Earth 🌍</h1>
         </header>
         <TimeStamp />

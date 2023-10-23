@@ -7,8 +7,9 @@ export function TimeStamp() {
   const [diffInDayz, setDiffInDayz] = useState<string | undefined>();
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [nameError, setNameError] = useState<string | null>(null); // new state variable
-  const [dateError, setDateError] = useState<string | null>(null); // new state variable
+  const [nameError, setNameError] = useState<string | null>(null); 
+  const [dateError, setDateError] = useState<string | null>(null); 
+  const [showTryAgain, setShowTryAgain] = useState<boolean>(false);
 
   const getDate = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setDate(event.target.value);
@@ -22,10 +23,10 @@ export function TimeStamp() {
 
   const getDayz = useCallback(() => {
     if (!name) {
-      setNameError("Please enter your name!"); // set error if name is not entered
+      setNameError("Sorry we'd need a name sir/ma 🤲!"); // set error if name is not entered
     }
     if (!date) {
-      setDateError("Please enter a date!"); // set error if date is not entered
+      setDateError("Think you forgot to add the date 😄 !"); // set error if date is not entered
     }
     if (name && date) {
       setLoading(true);
@@ -38,17 +39,23 @@ export function TimeStamp() {
     }
   }, [name, date]);
 
-  const tryAgain = useCallback(() => {
-    setSubmitted(false);
-  }, []);
+const tryAgain = useCallback(() => {
+  console.log("tryAgain function called");
+  setSubmitted(false);
+  setShowTryAgain(false);
+  setTimeout(() => {
+    console.log("Setting showTryAgain to true");
+    setShowTryAgain(true);
+  }, 2000);
+}, []);
 
   return (
-    <div className="flex flex-col p-5">
+    <div className="flex flex-col p-5 w-full h-full">
       {!submitted && (
         <>
-          <div>
+          <div className="text-center">
             <input
-              className="mb-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm"
+              className="w-70 text-center mb-2 px-4 py-2 border border-gray-300 rounded-md shadow-md"
               type="text"
               onChange={getName}
               placeholder="Your Name"
@@ -62,7 +69,7 @@ export function TimeStamp() {
             <input
               type="date"
               onChange={getDate}
-              className="w-full text-gray-700 mb-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm"
+              className="w-70 text-center text-gray-700 mb-2 px-4 py-2 border border-gray-300 rounded-md shadow-md"
             />
             {dateError ? (
               <p className="text-red-500 text-center">{dateError}</p>
@@ -82,24 +89,27 @@ export function TimeStamp() {
         </>
       )}
       {submitted && (
-        <div className="flex flex-col justify-center mx-auto border border-red-500 slide-out">
-          <p>
-            Hi, {name}! Your birthday is on {date} and this is day <br />
-            <span
-              style={{ fontWeight: 500, fontSize: 100, textAlign: "center" }}
-            >
-              {diffInDayz}
-            </span>
-            .
-          </p>
-          <div className="flex justify-center">
-            <button
-              onClick={tryAgain}
-              className="w-32 bg-gradient-to-l from-blue-500 to-green-500 text-white px-4 py-2 rounded"
-            >
-              Try Again
-            </button>
+        <div className="flex flex-col justify-center mx-auto slide-out">
+          <div className="w-full text-center">
+            <p className="text-2xl">
+              Hi, <span className="font-medium">{name}</span>
+            </p>
+            <p className="text-2xl">
+              Your birthday is on <span className="font-bold">{date}</span>
+            </p>
+            <p className="text-2xl">This is Day</p>
+            <p className="text-8xl font-extrabold">{diffInDayz}</p>
           </div>
+        </div>
+      )}
+      {showTryAgain && (
+        <div className="flex justify-center">
+          <button
+            onClick={tryAgain}
+            className="w-32 bg-gradient-to-l from-blue-500 to-green-500 text-white px-4 py-2 rounded"
+          >
+            Try Again
+          </button>
         </div>
       )}
     </div>

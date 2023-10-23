@@ -27,13 +27,14 @@
   justify-content: center;
   align-items: center;
   min-height: 97vh;
-  padding: 20px;
+  padding: 0px 300px 0px 300px;
   color: azure;
 }
 
 .App-title {
   font-weight: bold;
   font-size: 2rem;
+  text-align: center;
 }
 
 .App-footer{
