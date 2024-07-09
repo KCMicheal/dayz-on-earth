@@ -17,7 +17,7 @@ function App() {
       <footer className="App-footer">
         Made with 💖 by{" "}
         <span>
-          <a href="https://kcmicheal.com" className="underline">
+          <a href="https://kcmicheal.vercel.app" className="underline">
             KCM
           </a>
         </span>{" "}

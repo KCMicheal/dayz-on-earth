@@ -23,7 +23,7 @@ export function TimeStamp() {
 
   const getDayz = useCallback(() => {
     if (!name) {
-      setNameError("Sorry we'd need a name sir/ma 🤲!"); // set error if name is not entered
+      setNameError("Sorry we'd need a name 🤲!"); // set error if name is not entered
     }
     if (!date) {
       setDateError("Think you forgot to add the date 😄 !"); // set error if date is not entered
@@ -35,6 +35,7 @@ export function TimeStamp() {
         setDiffInDayz(dayz?.diffInDays);
         setLoading(false);
         setSubmitted(true);
+        setShowTryAgain(true);
       }, 1600);
     }
   }, [name, date]);
@@ -45,17 +46,16 @@ const tryAgain = useCallback(() => {
   setShowTryAgain(false);
   setTimeout(() => {
     console.log("Setting showTryAgain to true");
-    setShowTryAgain(true);
   }, 2000);
 }, []);
 
   return (
-    <div className="flex flex-col p-5 w-full h-full">
+    <div className="flex flex-col p-5 border w-full h-full">
       {!submitted && (
         <>
           <div className="text-center">
             <input
-              className="w-70 text-center mb-2 px-4 py-2 border border-gray-300 rounded-md shadow-md"
+              className="w-70 text-center text-gray-700 mb-2 px-4 py-2 border border-gray-300 rounded-md shadow-md"
               type="text"
               onChange={getName}
               placeholder="Your Name"
@@ -64,8 +64,8 @@ const tryAgain = useCallback(() => {
               <p className="text-red-500 text-center">{nameError}</p>
             ) : (
               <div className="text-red-500 text-center">&nbsp;</div>
-            )}{" "}
-            {/* display error if nameError is not null */}
+            )}
+
             <input
               type="date"
               onChange={getDate}
@@ -75,16 +75,16 @@ const tryAgain = useCallback(() => {
               <p className="text-red-500 text-center">{dateError}</p>
             ) : (
               <div className="text-red-500 text-center">&nbsp;</div>
-            )}{" "}
-            {/* display error if dateError is not null */}
-          </div>
-          <div className="flex justify-center">
-            <button
-              onClick={getDayz}
-              className="w-32 bg-gradient-to-l from-blue-500 to-green-500 text-white px-4 py-2 rounded"
-            >
-              {loading ? "Loading..." : "Submit"}
-            </button>
+            )}
+
+            <div className="flex justify-center">
+              <button
+                onClick={getDayz}
+                className="w-32 bg-gradient-to-l from-blue-500 to-green-500 text-white px-4 py-2 rounded"
+              >
+                {loading ? "Loading..." : "Submit"}
+              </button>
+            </div>
           </div>
         </>
       )}
@@ -103,7 +103,7 @@ const tryAgain = useCallback(() => {
         </div>
       )}
       {showTryAgain && (
-        <div className="flex justify-center">
+        <div className="">
           <button
             onClick={tryAgain}
             className="w-32 bg-gradient-to-l from-blue-500 to-green-500 text-white px-4 py-2 rounded"
