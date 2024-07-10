@@ -10,15 +10,16 @@ export function TimeStamp() {
   const [nameError, setNameError] = useState<string | null>(null); 
   const [dateError, setDateError] = useState<string | null>(null); 
   const [showTryAgain, setShowTryAgain] = useState<boolean>(false);
+  const [ tryAgainDiv, setTryAgainDiv ] = useState<string | null>("hidden")
 
   const getDate = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setDate(event.target.value);
-    setDateError(null); // clear error when input is changed
+    setDateError(null); 
   }, []);
 
   const getName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setNameError(null); // clear error when input is changed
+    setNameError(null);
   }, []);
 
   const getDayz = useCallback(() => {
@@ -28,6 +29,13 @@ export function TimeStamp() {
     if (!date) {
       setDateError("Think you forgot to add the date 😄 !"); // set error if date is not entered
     }
+
+    if (!name || !date) {
+      // Optionally, show an error message or simply return early
+      console.error("Both name and date must be provided.");
+      return;
+    }
+
     if (name && date) {
       setLoading(true);
       setTimeout(() => {
@@ -35,22 +43,28 @@ export function TimeStamp() {
         setDiffInDayz(dayz?.diffInDays);
         setLoading(false);
         setSubmitted(true);
-        setShowTryAgain(true);
       }, 1600);
+
+      setTimeout(() => {
+        setTryAgainDiv("block");
+        setShowTryAgain(true);
+      }, 3000);
     }
   }, [name, date]);
 
 const tryAgain = useCallback(() => {
-  console.log("tryAgain function called");
+  setName(undefined);
+  setDate('');
+  setDiffInDayz(undefined);
   setSubmitted(false);
   setShowTryAgain(false);
-  setTimeout(() => {
-    console.log("Setting showTryAgain to true");
-  }, 2000);
+  setLoading(false);
+  setNameError(null);
+  setDateError(null);
 }, []);
 
   return (
-    <div className="flex flex-col p-5 border w-full h-full">
+    <div className="flex flex-col p-5 w-full h-[40vh] space-y-10">
       {!submitted && (
         <>
           <div className="text-center">
@@ -88,6 +102,7 @@ const tryAgain = useCallback(() => {
           </div>
         </>
       )}
+      
       {submitted && (
         <div className="flex flex-col justify-center mx-auto slide-out">
           <div className="w-full text-center">
@@ -102,16 +117,18 @@ const tryAgain = useCallback(() => {
           </div>
         </div>
       )}
-      {showTryAgain && (
-        <div className="">
-          <button
-            onClick={tryAgain}
-            className="w-32 bg-gradient-to-l from-blue-500 to-green-500 text-white px-4 py-2 rounded"
-          >
-            Try Again
-          </button>
-        </div>
-      )}
+      <div className={`${tryAgainDiv} `}>
+        {showTryAgain && (
+          <div className="text-center">
+            <button
+              onClick={tryAgain}
+              className="w-32 bg-gradient-to-l transition-transform ease-in delay-700 from-blue-500  to-green-500 text-white px-4 py-2 rounded"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

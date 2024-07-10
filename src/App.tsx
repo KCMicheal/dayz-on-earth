@@ -10,7 +10,7 @@ function App() {
       <div className="App-container">
         <header className="App-header">
           <img src={Logo} className="mx-auto w-44" alt="Logo" />
-          <h1 className="App-title">Dayz On Earth 🌍</h1>
+          <h1 className="App-title drop-shadow-2xl">Dayz On Earth 🌍</h1>
         </header>
         <TimeStamp />
       </div>
